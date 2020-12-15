@@ -1,8 +1,8 @@
-cmd_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.o := gcc -Wp,-MD,/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/.memo_201504399.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/7/include  -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -Iubuntu/include  -include ./include/linux/compiler_types.h -D__KERNEL__ -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=implicit-function-declaration -Werror=implicit-int -Wno-format-security -std=gnu89 -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -m64 -falign-jumps=1 -falign-loops=1 -mno-80387 -mno-fp-ret-in-387 -mpreferred-stack-boundary=3 -mskip-rax-setup -mtune=generic -mno-red-zone -mcmodel=kernel -DCONFIG_X86_X32_ABI -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1 -Wno-sign-compare -fno-asynchronous-unwind-tables -mindirect-branch=thunk-extern -mindirect-branch-register -fno-jump-tables -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -O2 --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fstack-protector-strong -Wno-unused-but-set-variable -Wimplicit-fallthrough -Wno-unused-const-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -pg -mrecord-mcount -mfentry -DCC_USING_FENTRY -Wdeclaration-after-statement -Wvla -Wno-pointer-sign -fno-strict-overflow -fno-merge-all-constants -fmerge-constants -fno-stack-check -fconserve-stack -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init  -DMODULE  -DKBUILD_BASENAME='"memo_201504399"' -DKBUILD_MODNAME='"memo_201504399"' -c -o /home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.o /home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.c
+cmd_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.o := gcc -Wp,-MD,/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/.memo_201504399.o.d  -nostdinc -isystem /usr/lib/gcc/x86_64-linux-gnu/7/include  -I./arch/x86/include -I./arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -Iubuntu/include  -include ./include/linux/compiler_types.h -D__KERNEL__ -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=implicit-function-declaration -Werror=implicit-int -Wno-format-security -std=gnu89 -mno-sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -m64 -falign-jumps=1 -falign-loops=1 -mno-80387 -mno-fp-ret-in-387 -mpreferred-stack-boundary=3 -mskip-rax-setup -mtune=generic -mno-red-zone -mcmodel=kernel -DCONFIG_X86_X32_ABI -DCONFIG_AS_CFI=1 -DCONFIG_AS_CFI_SIGNAL_FRAME=1 -DCONFIG_AS_CFI_SECTIONS=1 -DCONFIG_AS_SSSE3=1 -DCONFIG_AS_AVX=1 -DCONFIG_AS_AVX2=1 -DCONFIG_AS_AVX512=1 -DCONFIG_AS_SHA1_NI=1 -DCONFIG_AS_SHA256_NI=1 -Wno-sign-compare -fno-asynchronous-unwind-tables -mindirect-branch=thunk-extern -mindirect-branch-register -fno-jump-tables -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -O2 --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fstack-protector-strong -Wno-unused-but-set-variable -Wimplicit-fallthrough -Wno-unused-const-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -pg -mrecord-mcount -mfentry -DCC_USING_FENTRY -Wdeclaration-after-statement -Wvla -Wno-pointer-sign -fno-strict-overflow -fno-merge-all-constants -fmerge-constants -fno-stack-check -fconserve-stack -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init  -DMODULE  -DKBUILD_BASENAME='"memo_201504399"' -DKBUILD_MODNAME='"memo_201504399"' -c -o /home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.o /home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.c
 
-source_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.o := /home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.c
+source_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.o := /home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.c
 
-deps_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.o := \
+deps_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.o := \
   include/linux/kconfig.h \
     $(wildcard include/config/cpu/big/endian.h) \
     $(wildcard include/config/booger.h) \
@@ -1002,7 +1002,81 @@ deps_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_20150439
     $(wildcard include/config/modules/use/elf/rel.h) \
     $(wildcard include/config/modules/use/elf/rela.h) \
   arch/x86/include/asm/orc_types.h \
+  include/linux/swap.h \
+    $(wildcard include/config/frontswap.h) \
+    $(wildcard include/config/memcg/swap.h) \
+  include/linux/memcontrol.h \
+  include/linux/page_counter.h \
+  include/linux/vmpressure.h \
+  include/linux/eventfd.h \
+    $(wildcard include/config/eventfd.h) \
+  include/linux/writeback.h \
+  include/linux/flex_proportions.h \
+  include/linux/backing-dev-defs.h \
+    $(wildcard include/config/debug/fs.h) \
+  include/linux/blk_types.h \
+    $(wildcard include/config/blk/dev/integrity.h) \
+  include/linux/bvec.h \
+  include/linux/blk-cgroup.h \
+    $(wildcard include/config/blk/dev/throttling.h) \
+  include/linux/blkdev.h \
+    $(wildcard include/config/blk/wbt.h) \
+    $(wildcard include/config/blk/dev/zoned.h) \
+    $(wildcard include/config/pm.h) \
+    $(wildcard include/config/blk/dev/bsg.h) \
+    $(wildcard include/config/blk/debug/fs.h) \
+  include/linux/sched/clock.h \
+    $(wildcard include/config/have/unstable/sched/clock.h) \
+  include/uapi/linux/major.h \
+  include/linux/genhd.h \
+    $(wildcard include/config/fail/make/request.h) \
+    $(wildcard include/config/solaris/x86/partition.h) \
+    $(wildcard include/config/bsd/disklabel.h) \
+    $(wildcard include/config/unixware/disklabel.h) \
+    $(wildcard include/config/minix/subpartition.h) \
+  arch/x86/include/asm/local.h \
+  include/linux/device.h \
+    $(wildcard include/config/debug/devres.h) \
+    $(wildcard include/config/generic/msi/irq/domain.h) \
+    $(wildcard include/config/pinctrl.h) \
+    $(wildcard include/config/generic/msi/irq.h) \
+    $(wildcard include/config/dma/declare/coherent.h) \
+    $(wildcard include/config/dma/cma.h) \
+    $(wildcard include/config/arch/has/sync/dma/for/device.h) \
+    $(wildcard include/config/arch/has/sync/dma/for/cpu.h) \
+    $(wildcard include/config/arch/has/sync/dma/for/cpu/all.h) \
+    $(wildcard include/config/of.h) \
+    $(wildcard include/config/devtmpfs.h) \
+    $(wildcard include/config/sysfs/deprecated.h) \
+  include/linux/klist.h \
+  include/linux/pm.h \
+    $(wildcard include/config/vt/console/sleep.h) \
+    $(wildcard include/config/pm/clk.h) \
+    $(wildcard include/config/pm/generic/domains.h) \
+  arch/x86/include/asm/device.h \
+    $(wildcard include/config/intel/iommu.h) \
+    $(wildcard include/config/amd/iommu.h) \
+    $(wildcard include/config/sta2x11.h) \
+    $(wildcard include/config/x86/dev/dma/ops.h) \
+    $(wildcard include/config/pci/domains.h) \
+  include/linux/pm_wakeup.h \
+  include/linux/mempool.h \
+  include/linux/bio.h \
+  include/linux/bsg.h \
+  include/uapi/linux/bsg.h \
+  include/linux/scatterlist.h \
+    $(wildcard include/config/need/sg/dma/length.h) \
+    $(wildcard include/config/debug/sg.h) \
+    $(wildcard include/config/sgl/alloc.h) \
+    $(wildcard include/config/arch/no/sg/chain.h) \
+    $(wildcard include/config/sg/pool.h) \
+  include/uapi/linux/blkzoned.h \
+  include/linux/elevator.h \
+  include/linux/hashtable.h \
+  include/linux/node.h \
+    $(wildcard include/config/hmem/reporting.h) \
+    $(wildcard include/config/memory/hotplug/sparse.h) \
 
-/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.o: $(deps_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.o)
+/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.o: $(deps_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.o)
 
-$(deps_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/memo_201504399/memo_201504399.o):
+$(deps_/home/marielos/Escritorio/SOPES1/LAB/PROYECTO1/proyecto1_201504399_so1/memo_201504399/memo_201504399.o):
