@@ -6,8 +6,6 @@
 #include <linux/init.h>
 #include <linux/kernel.h>
 #include <linux/fs.h>
-
-
 #include <linux/swap.h>
 #include <asm/page.h>
 #include <linux/mmzone.h>
@@ -21,7 +19,6 @@ MODULE_DESCRIPTION("Ecribir informacion de la memoria ram.");
 MODULE_AUTHOR("201504399");
 
 struct sysinfo inf;
-
 static int escribir_archivo(struct seq_file * archivo, void *v){
     si_meminfo(&inf);
     long total_memoria = (inf.totalram *4 );
@@ -32,13 +29,6 @@ static int escribir_archivo(struct seq_file * archivo, void *v){
     long porcentaje =((memoria_utilizada *100)/total_memoria);
     //Total Memory - (Free + Buffers + Cached) 
 
-   /* seq_printf(archivo,"***********************************************************\n");
-    seq_printf(archivo,"*          201504399         Maria Herrera                *\n");
-    seq_printf(archivo,"*          PROYECTO 1 SOPES 1 Vac Dic 2020                *\n");
-    seq_printf(archivo,"*                     MEMORIA RAM                         *\n");
-    seq_printf(archivo,"***********************************************************\n");
-    seq_printf(archivo,"SO Ubuntu 18.04.5\n");
-     seq_printf(archivo,"Memoria Libre: \t %8lu KB - %8lu MB\n",memoria_libre, memoria_libre /1024);*/
     seq_printf(archivo,"{\n");
     seq_printf(archivo,"\"Total\":\"%lu\",\n", total_memoria /1024); //total memoria ram
     seq_printf(archivo,"\"Uso\":\"%lu\",\n", memoria_utilizada/1024); // total memoria consumida
@@ -46,7 +36,6 @@ static int escribir_archivo(struct seq_file * archivo, void *v){
      seq_printf(archivo,"} \n");
     return 0;
 }
-
 
 static int al_abrir(struct inode *inode, struct file *file){
     return single_open(file,escribir_archivo,NULL);

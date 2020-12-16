@@ -16,6 +16,29 @@ import (
 
 var clientes = make(map[*websocket.Conn]string)
 
+type memoria struct {
+	Total      string `json:"Total"`
+	Uso        string `json:"Uso"`
+	Porcentaje string `json:"Porcentaje"`
+}
+
+type hijo struct {
+	PID     string `json:"PID"`
+	PROCESO string `json:"PROCESO"`
+	ESTADO  string `json:"ESTADO"`
+	MEMORIA string `json:"MEMORIA"`
+	USUARIO string `json:"USUARIO"`
+}
+
+type proceso struct {
+	PID     string `json:"PID"`
+	PROCESO string `json:"PROCESO"`
+	ESTADO  string `json:"ESTADO"`
+	MEMORIA string `json:"MEMORIA"`
+	USUARIO string `json:"USUARIO"`
+	HIJOS   []hijo `json:"HIJOS"`
+}
+
 var actualiza = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
@@ -55,29 +78,6 @@ func reader(conn *websocket.Conn) {
 		}
 
 	}
-}
-
-type memoria struct {
-	Total      string `json:"Total"`
-	Uso        string `json:"Uso"`
-	Porcentaje string `json:"Porcentaje"`
-}
-
-type hijo struct {
-	PID     string `json:"PID"`
-	PROCESO string `json:"PROCESO"`
-	ESTADO  string `json:"ESTADO"`
-	MEMORIA string `json:"MEMORIA"`
-	USUARIO string `json:"USUARIO"`
-}
-
-type proceso struct {
-	PID     string `json:"PID"`
-	PROCESO string `json:"PROCESO"`
-	ESTADO  string `json:"ESTADO"`
-	MEMORIA string `json:"MEMORIA"`
-	USUARIO string `json:"USUARIO"`
-	HIJOS   []hijo `json:"HIJOS"`
 }
 
 func infomemo() {
