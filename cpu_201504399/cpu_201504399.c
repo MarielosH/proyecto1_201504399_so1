@@ -14,46 +14,53 @@ struct task_struct *task_child; //estructura necesaria para iterar a través de 
 struct list_head *list;  //estructura necesaria para recorrer la lista en cada tarea -> estructura de hijos.
 
 static int escribir_archivo(struct seq_file * archivo, void *v){
+    int contador =0;
+    int contadoraux=0;
      #define Convert(x) ((x) << (PAGE_SHIFT - 10))
+    seq_printf(archivo, " [ ");
 
-  //  seq_printf(archivo,"***********************************************************\n");
-  //  seq_printf(archivo,"*          201504399         Maria Herrera                *\n");
-  //  seq_printf(archivo,"*          PROYECTO 1 SOPES 1 Vac Dic 2020                *\n");
-  //  seq_printf(archivo,"*                         CPU                             *\n");
-  //  seq_printf(archivo,"***********************************************************\n");
     for_each_process(task){
-        seq_printf(archivo," {\n");
-        seq_printf(archivo, "\"PID\": \"%d\" ",task->pid);
-        seq_printf(archivo, "\n\"PROCESO\": \"%s\"", task->comm);
-        seq_printf(archivo, "\n\"ESTADO\": \"%ld\"",task->state);
-        if(task->mm!=NULL){
-            seq_printf(archivo, "\n\"MEMORIA\": %ld",Convert(get_mm_rss(task->mm)));
-        } else {
-                 seq_printf(archivo,"\n\"MEMORIA\":\"0\"");
+        if(contador>0){
+            seq_printf(archivo,"   , \n");
         }
-        
-        seq_printf(archivo,"\n\"USUARIO\": \"%d\"", __kuid_val(task->real_cred->uid));
+        seq_printf(archivo," {\n");
+        seq_printf(archivo, "\"PID\": \"%d\",",task->pid);
+        seq_printf(archivo, "\n\"PROCESO\": \"%s\",", task->comm);
+        seq_printf(archivo, "\n\"ESTADO\": \"%ld\",",task->state);
+        if(task->mm!=NULL){
+            seq_printf(archivo, "\n\"MEMORIA\": \"%ld\",",Convert(get_mm_rss(task->mm)));
+        } else {
+            seq_printf(archivo,"\n\"MEMORIA\":\"0\",");
+        }        
+        seq_printf(archivo,"\n\"USUARIO\": \"%d\",", __kuid_val(task->real_cred->uid));
+    
         seq_printf(archivo, "\n\"HIJOS\": [ ");
-
+        contadoraux=0;
         list_for_each(list, &task->children){
+            if(contadoraux>0){
+                seq_printf(archivo,"   , \n");
+            }
             task_child = list_entry(list,struct task_struct, sibling);
             seq_printf(archivo,"\n\t{\n");
-            seq_printf(archivo,"\t\"PID\": \"%d\"",task_child->pid);
-            seq_printf(archivo,"\n\t\"PROCESO\": \"%s\"",task_child->comm);
-            seq_printf(archivo,"\n\t\"ESTADO\": \"%ld\"",task_child->state);    
-             if(task_child->mm!=NULL){   
-                seq_printf(archivo, "\n\t\"MEMORIA\": %ld",Convert(get_mm_rss(task_child->mm)));
-             } else {
-                 seq_printf(archivo,"\n\t\"MEMORIA\":\"0\"");
-             }
+            seq_printf(archivo,"\t\"PID\": \"%d\",",task_child->pid);
+            seq_printf(archivo,"\n\t\"PROCESO\": \"%s\",",task_child->comm);
+            seq_printf(archivo,"\n\t\"ESTADO\": \"%ld\",",task_child->state);
+            if(task_child->mm!=NULL){
+                    seq_printf(archivo, "\n\t\"MEMORIA\":\"%ld\",",Convert(get_mm_rss(task_child->mm)));
+            } else {
+                    seq_printf(archivo,"\n\t\"MEMORIA\":\"0\",");
+            }
             seq_printf(archivo,"\n\t\"USUARIO\": \"%d\"", __kuid_val(task_child->real_cred->uid));
-            seq_printf(archivo,"\n\t } ,\n");     
+            seq_printf(archivo,"\n\t } \n");
+            contadoraux++;
         }
-        seq_printf(archivo," ]\n");
-     seq_printf(archivo,"} , \n");
-        // seq_printf(archivo, "%s","\n*****************************************************\n");
+        seq_printf(archivo," ] \n");
+        contador++;
+        seq_printf(archivo,"}  \n");
+
     }
-     #undef k
+    seq_printf(archivo, " ] ");
+    #undef k
     return 0;
 }
 

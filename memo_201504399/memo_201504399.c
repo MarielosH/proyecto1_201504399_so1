@@ -40,9 +40,9 @@ static int escribir_archivo(struct seq_file * archivo, void *v){
     seq_printf(archivo,"SO Ubuntu 18.04.5\n");
      seq_printf(archivo,"Memoria Libre: \t %8lu KB - %8lu MB\n",memoria_libre, memoria_libre /1024);*/
     seq_printf(archivo,"{\n");
-    seq_printf(archivo,"\"Total\": \"%8lu\" \n", total_memoria /1024); //total memoria ram
-    seq_printf(archivo,"\"Uso\": \"%8lu\" \n", memoria_utilizada/1024); // total memoria consumida
-    seq_printf(archivo,"\"Porcentaje\": \"%li\" \n",porcentaje); //porcentaje de consumo
+    seq_printf(archivo,"\"Total\":\"%lu\",\n", total_memoria /1024); //total memoria ram
+    seq_printf(archivo,"\"Uso\":\"%lu\",\n", memoria_utilizada/1024); // total memoria consumida
+    seq_printf(archivo,"\"Porcentaje\":\"%li\"\n",porcentaje); //porcentaje de consumo
      seq_printf(archivo,"} \n");
     return 0;
 }
