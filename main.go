@@ -241,10 +241,6 @@ func getCpuInfo(conn *websocket.Conn) {
 
 }
 
-func homePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello world")
-}
-
 func otro() {
 	http.HandleFunc("/procesos", servecpu)
 }
@@ -255,7 +251,6 @@ func main() {
 	fmt.Println("Puerto 3000")
 	fs := http.FileServer(http.Dir("./Frontend"))
 	http.Handle("/", fs)
-	//http.HandleFunc("/home", homePage)
 	http.HandleFunc("/memo", serveWs)
 	go otro()
 	go otro2()
