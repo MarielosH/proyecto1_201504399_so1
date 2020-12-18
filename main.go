@@ -20,8 +20,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var clientes = make(map[*websocket.Conn]string)
-
 type memoria struct {
 	Total      string `json:"Total"`
 	Uso        string `json:"Uso"`
@@ -56,6 +54,10 @@ type proceso struct {
 type objcpu struct {
 	ListaProcesos []proceso `json:"ListaProcesos"`
 	General       []datos   `json:"General"`
+}
+
+type cpuStruct struct {
+	Porcentaje float64 `json:"porcentaje"`
 }
 
 var actualiza = websocket.Upgrader{
@@ -118,12 +120,7 @@ func infomemo(conn *websocket.Conn) {
 		for t := range ticker.C {
 			fmt.Printf("Cargando : %+v\n", t)
 			ArchivoMemo, errores := ioutil.ReadFile("/proc/memo_201504399")
-			//se puede obviar de acá
-			/*memo := memoria{}
-			errores = json.Unmarshal(ArchivoMemo, &memo)
 
-			fmt.Println(memo)*/
-			//hasta acá, eso era solo para leerlo
 			if errores != nil {
 				fmt.Println("Error al leer el archivo memo.", errores)
 				return
@@ -137,7 +134,6 @@ func infomemo(conn *websocket.Conn) {
 
 	}
 
-	//time.Sleep(2000 * time.Millisecond)
 }
 
 func servecpu(w http.ResponseWriter, r *http.Request) {
@@ -184,10 +180,6 @@ func infocpu(conn *websocket.Conn) {
 
 	}
 	//time.Sleep(2000 * time.Millisecond)
-}
-
-type cpuStruct struct {
-	Porcentaje float64 `json:"porcentaje"`
 }
 
 func getCpuInfo(conn *websocket.Conn) {
