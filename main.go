@@ -7,9 +7,14 @@ import (
 )
 
 import (
+	"bufio"
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"math"
+	"os"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -82,6 +87,19 @@ func Upgrade2(w http.ResponseWriter, r *http.Request) (*websocket.Conn, error) {
 	// returnswebsocket connection
 	return ws, nil
 }
+func Upgrade3(w http.ResponseWriter, r *http.Request) (*websocket.Conn, error) {
+	actualiza.CheckOrigin = func(r *http.Request) bool { return true }
+
+	// websocket connection
+	ws, err := actualiza.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return ws, err
+	}
+	// returnswebsocket connection
+	return ws, nil
+}
+
 func serveWs(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.Host)
 	ws, err := Upgrade(w, r)
@@ -131,6 +149,15 @@ func servecpu(w http.ResponseWriter, r *http.Request) {
 	//defer ws.Close()
 	go infocpu(ws)
 }
+func servecpu2(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.Host)
+	ws, err := Upgrade3(w, r)
+	if err != nil {
+		fmt.Fprintf(w, "%+v\n", err)
+	}
+	//defer ws.Close()
+	go getCpuInfo(ws)
+}
 func infocpu(conn *websocket.Conn) {
 
 	for {
@@ -159,12 +186,70 @@ func infocpu(conn *websocket.Conn) {
 	//time.Sleep(2000 * time.Millisecond)
 }
 
+type cpuStruct struct {
+	Porcentaje float64 `json:"porcentaje"`
+}
+
+func getCpuInfo(conn *websocket.Conn) {
+	var prevIdleTime, prevTotalTime uint64
+	var cpuUsage = 0.0
+
+	for {
+		ticker := time.NewTicker(2 * time.Second)
+
+		for t := range ticker.C {
+			fmt.Printf("Cargando : %+v\n", t)
+			file, err := os.Open("/proc/stat")
+			if err != nil {
+				log.Fatal(err)
+			}
+			scanner := bufio.NewScanner(file)
+			scanner.Scan()
+			firstLine := scanner.Text()[5:] // get rid of cpu plus 2 spaces
+			file.Close()
+			if err := scanner.Err(); err != nil {
+				log.Fatal(err)
+			}
+			split := strings.Fields(firstLine)
+			idleTime, _ := strconv.ParseUint(split[3], 10, 64)
+			totalTime := uint64(0)
+			for _, s := range split {
+				u, _ := strconv.ParseUint(s, 10, 64)
+				totalTime += u
+			}
+
+			deltaIdleTime := idleTime - prevIdleTime
+			deltaTotalTime := totalTime - prevTotalTime
+			cpuUsage = (1.0 - float64(deltaIdleTime)/float64(deltaTotalTime)) * 100.0
+			fmt.Printf(" %6.3f\n", cpuUsage)
+
+			prevIdleTime = idleTime
+			prevTotalTime = totalTime
+
+			cpuObj := &cpuStruct{math.Round(cpuUsage*100) / 100}
+			jsonResponse, errorjson := json.Marshal(cpuObj)
+			if errorjson != nil {
+				fmt.Println("Error al leer el archivo cpu.", errorjson)
+				return
+			}
+			if err := conn.WriteMessage(websocket.TextMessage, []byte(jsonResponse)); err != nil {
+				fmt.Println(err)
+				return
+			}
+		}
+	}
+
+}
+
 func homePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello world")
 }
 
 func otro() {
 	http.HandleFunc("/procesos", servecpu)
+}
+func otro2() {
+	http.HandleFunc("/cpuinfo", servecpu2)
 }
 func main() {
 	fmt.Println("Puerto 3000")
@@ -173,6 +258,7 @@ func main() {
 	//http.HandleFunc("/home", homePage)
 	http.HandleFunc("/memo", serveWs)
 	go otro()
+	go otro2()
 	log.Fatal(http.ListenAndServe(":3000", nil))
 
 }
