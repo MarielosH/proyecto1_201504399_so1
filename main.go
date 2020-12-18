@@ -101,14 +101,15 @@ func infomemo(conn *websocket.Conn) {
 			fmt.Printf("Cargando : %+v\n", t)
 			ArchivoMemo, errores := ioutil.ReadFile("/proc/memo_201504399")
 			//se puede obviar de acá
-			memo := memoria{}
+			/*memo := memoria{}
 			errores = json.Unmarshal(ArchivoMemo, &memo)
+
+			fmt.Println(memo)*/
+			//hasta acá, eso era solo para leerlo
 			if errores != nil {
 				fmt.Println("Error al leer el archivo memo.", errores)
 				return
 			}
-			fmt.Println(memo)
-			//hasta acá, eso era solo para leerlo
 			if err := conn.WriteMessage(websocket.TextMessage, []byte(ArchivoMemo)); err != nil {
 				fmt.Println(err)
 				return

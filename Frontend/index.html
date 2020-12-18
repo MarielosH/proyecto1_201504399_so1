@@ -51,25 +51,7 @@
         </div>
             <h3 id="id1"></h3>
             
-    <script>
-        let infomemo = {};
-        const websocket = new WebSocket("ws://localhost:3000/memo")
-
-        websocket.onopen = function (event){
-            console.log("successfully connected");
-        }
-
-        websocket.onerror = function (err){
-            console.log("Error connecting to websocket server");
-            console.log(err);
-        }
-
-        websocket.onmessage = function(event){
-            infomemo = JSON.parse(event.data);
-            //console.log(event);
-            document.getElementById("id1").innerText= infomemo.Uso;
-        }
-    </script>
+    
         </div>
       </div>
 
@@ -97,8 +79,13 @@
         </div>
       </div>
 
+         
+      
    <script>
+  
+        let hijos=[];
         let objetocpu = {};
+        let listap=[];
         const websocket2 = new WebSocket("ws://localhost:3000/procesos")
   
         websocket2.onopen = function (event){
@@ -112,53 +99,83 @@
   
         websocket2.onmessage = function(event){
             objetocpu = JSON.parse(event.data);
+            listap=objetocpu.ListaProcesos;
+           // console.log(listap);
             document.getElementById("pejecucion").innerText= objetocpu.General[0].Ejecucion;
             document.getElementById("psuspendidos").innerText= objetocpu.General[0].Suspendidos;
             document.getElementById("pdetenidos").innerText= objetocpu.General[0].Detenidos;
             document.getElementById("pzombie").innerText= objetocpu.General[0].Zombie;
             document.getElementById("ptotal").innerText= objetocpu.General[0].Total;
             
+         //   console.log("HOLAAA");
+      //console.log(listap);
+      let tablah = " <table id=\"tablaprocesoshijos\" border=\"2px\" WIDTH=\"30%\"  HEIGHT=\"30%\">"+ 
+      "<tbody id=\"contenido\">";
+
+      let tablap = " <table id=\"tablaprocesos\" border=\"4px\" >"+  
+      "<thead class=\"thead-dark\"> \n <tr>  \n<th style=\"text-align:center\" scope=\"col\">    PID   </th>"+
+      "<th style=\"text-align:center\" scope=\"col\">    NOMBRE    </th> \n <th style=\"text-align:center\"  scope=\"col\">    ESTADO   </th>"+
+      "<th style=\"text-align:center\" scope=\"col\">    %RAM    </th> \n  <th style=\"text-align:center\" scope=\"col\">    USUARIO    </th> "+
+      "<th style=\"text-align:center\" scope=\"col\">    HIJOS    </th> "+
+      " </tr> \n </thead>\n <tbody id=\"contenido\">";
+      for(let proceso of listap ){
+         let nombre = proceso.PROCESO;
+         //console.log(proceso.MEMORIA/7837);
+         tablap+= "<tr>"+
+         "<th style=\"text-align:center\" scope=\"row\">"+ proceso.PID+ "</th>"+
+         "<td> <p style=\"text-align:center\">"+proceso.PROCESO+"</p></td>"+
+         "<td> <p style=\"text-align:center\">"+proceso.ESTADO+"</p></td>"+
+         "<td> <p style=\"text-align:center\">"+proceso.MEMORIA/7837+"</p></td>"+
+         "<td> <p style=\"text-align:center\">"+proceso.USUARIO+"</p></td>"+
+         "<td> ";
+         hijos=proceso.HIJOS;
+         tablap += "<input id=\""+proceso.PID+"\""+" type=\"button\" value=\""+hijos.length+"\">";
+         /*if(hijos.length>0){
+           
+          // console.log(hijos);          
+           for (let hijo of hijos){
+          // console.log("hijo: ");
+          // console.log(hijo);
+              tablah+= "<tr>"+
+            "<th style=\"text-align:center\" scope=\"row\">"+ hijo.PID+ "</th>"+
+            "<td> <p style=\"text-align:center\">"+hijo.PROCESO+"</p></td>"+
+            "<td> <p style=\"text-align:center\">"+hijo.ESTADO+"</p></td>"+
+            "<td> <p style=\"text-align:center\">"+hijo.MEMORIA/7837+"</p></td>"+
+            "<td> <p style=\"text-align:center\">"+hijo.USUARIO+"</p></td>";
+            }
+
+            tablah+= "</tbody> </table>";
+            //tablap += tablah;
+         }*/
+         tablap+="</td>";
+         
+      }
+      tablap+= "</tbody> </table>";
+      document.getElementById("tabla").innerHTML= tablap;
+      tablap="";
         }
     </script>
 
-    </div>
-  </div>
-</div>
-<div class="features">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="feature-box media">
-          <div class="icon-box text-center pull-left media-object"> <i class="icon-bulb"></i> </div>
-          <div class="feature-text media-body">
-            <h4>Elementum laoreet</h4>
-            <p class="feature-detail">Cras aliquet et mi id fermentum. Suspendisse eget sodales lorem, vestibulum euismod lectus.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="feature-box media pull-left">
-          <div class="icon-box text-center pull-left media-object"> <i class="icon-eye"></i> </div>
-          <div class="feature-text media-body">
-            <h4>Elementum laoreet</h4>
-            <p class="feature-detail">Cras aliquet et mi id fermentum. Suspendisse eget sodales lorem, vestibulum euismod lectus.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="feature-box media pull-left">
-          <div class="icon-box text-center pull-left media-object"> <i class="icon-heart"></i> </div>
-          <div class="feature-text media-body">
-            <h4>Elementum laoreet</h4>
-            <p class="feature-detail">Cras aliquet et mi id fermentum. Suspendisse eget sodales lorem, vestibulum euismod lectus.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
+    </div>
+  </div>
+</div>
+<div style="text-align:center">
+<table id="tabla">
+        
+</table>
+</div>
 <!-- Portfolio -->
+<div class="row">
+  <div class="col-md-1 col-sm-6 col-xs-12"></div>
+  <div class="col-md-10 col-sm-6 col-xs-12">
+ 
+  
+  </div>
+  <div class="col-md-1 col-sm-6 col-xs-12"></div>
+</div>
+</body>
+
 
 <footer>
   <div class="container">
@@ -181,5 +198,4 @@
 <script type="text/javascript" src="js/jquery.countTo.js"></script> 
 <script type="text/javascript" src="js/jquery.waypoints.min.js"></script> 
 
-</body>
 </html>

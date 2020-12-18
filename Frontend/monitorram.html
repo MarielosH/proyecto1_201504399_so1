@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Monitor RAM</title>
+<title>Memoria y CPU</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="css/simple-line-icons.css"/>
@@ -24,4 +24,155 @@
 
 </head>
 
-</html>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+    <div class="main-header" id="main-header">
+      <nav class="navbar mynav navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a class="navbar-brand" href="index.html">Procesos</a> </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="index.html">Home</a></li>
+              <li><a href="monitorcpu.html">Monitor CPU</a></li>
+              <li><a href="monitorram.html">Monitor RAM</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-6 col-xs-12">
+            </div>
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <h1>TITULO</h1>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-12">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-6 col-xs-12">
+            </div>
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <h1>MONITOR DE LA RAM</h1>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-12">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <h3>TOTAL RAM(MB):</h3>
+                <h3 id="totalram"></h3>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <h3>TOTAL RAM CONSUMIDA(MB):</h3>
+                <h3 id="totalconsumida"></h3>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <h3>RAM CONSUMIDA(%):</h3>
+                <h3 id="porcentajeram"></h3>
+            </div>
+        </div>
+     
+        <div class="row">
+            <div class="col-md-2 col-sm-6 col-xs-12">
+            </div>
+            <div class="col-md-8 col-sm-6 col-xs-12">
+
+<canvas id="myChart" width="60" height="30"></canvas>
+<script src="chart.js-2.9.4/package/dist/Chart.js"></script>
+<script>
+    let infomemo = {};
+    let memoria=[];
+    //let tiempo=["10","20","30","40","50","60"];
+    let tiempo =[];
+    let contador=0;
+
+    const websocket = new WebSocket("ws://localhost:3000/memo")
+
+    websocket.onopen = function (event){
+        console.log("successfully connected");
+    }
+
+    websocket.onerror = function (err){
+        console.log("Error connecting to websocket server");
+        console.log(err);
+    }
+
+    websocket.onmessage = function(event){
+       infomemo = JSON.parse(event.data);
+       contador=contador+2;
+       tiempo.push(contador);
+       memoria.push(infomemo.Uso);
+       document.getElementById("totalram").innerText= infomemo.Total;
+       document.getElementById("totalconsumida").innerText= infomemo.Uso;
+       document.getElementById("porcentajeram").innerText= infomemo.Porcentaje;
+
+        var ctx = document.getElementById('myChart');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: tiempo,
+                datasets: [{
+                    label: 'Porcentaje de consumo de RAM ',
+                    data: memoria,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        
+    }
+</script>
+
+<script>
+</script>
+
+
+    </div>
+    <div class="col-md-2 col-sm-6 col-xs-12">
+    </div>
+</div>
+</div>
+
+<footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"> <span class="copyright">Copyright &copy; Marielos Herrera 2020</span> </div>
+        <div class="col-md-4">
+  
+        </div>
+        <div class="col-md-4">
+          <ul class="list-inline quicklinks">
+            <li>Designed by <a href="http://w3template.com">W3 Template</a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</body>
+
+  </footer>
+  <script src="js/jquery.min.js"></script> 
+  <script src="js/bootstrap.min.js"></script> 
+  <script type="text/javascript" src="js/owl.carousel.min.js"></script> 
+  <script type="text/javascript" src="js/jquery.countTo.js"></script> 
+  <script type="text/javascript" src="js/jquery.waypoints.min.js"></script> 
+  </html>
+  

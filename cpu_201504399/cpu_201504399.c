@@ -69,9 +69,7 @@ char * get_task_state(long state){
 
 static int escribir_archivo(struct seq_file * archivo, void *v){
     int contador =0;
-    int contadoraux=0;
-
-     
+    int contadoraux=0;    
 
     seq_printf(archivo," {\n");
     seq_printf(archivo, "\"ListaProcesos\": [ ");
@@ -133,6 +131,11 @@ static int escribir_archivo(struct seq_file * archivo, void *v){
 }
 
 static int al_abrir(struct inode *inode, struct file *file){
+    ejecucion=0;
+   suspendidos=0;
+   detenidos=0;
+   zombies=0;
+  totalp=0;
     return single_open(file,escribir_archivo,NULL); 
 }
 
@@ -146,19 +149,7 @@ int iniciar(void){ //modulo de inicio
     proc_create("cpu_201504399",0,NULL,&operaciones);
     printk(KERN_INFO "%s","Cargando modulo.\n");
     printk(KERN_INFO "%s","María de los Angeles Herrera Sumalé.\n"); 
-   /* for_each_process(task){
 
-        printk(KERN_INFO "\nPADRE PID: %d PROCESO: %s ESTADO: %ld",task->pid, task->comm,task->state);
-        list_for_each(list, &task->children){
-            task_child = list_entry(list,struct task_struct, sibling);
-            printk(KERN_INFO "\n HIJO DE %s[%d] PID: %d PROCESO: %s  ESTADO:  %ld",task->comm, task->pid,task_child->pid,
-            task_child->comm,task_child->state);
-            
-        }
-        printk("*****************************************************");
-    } 
-    printk(KERN_INFO "%s","Cargando modulo.\n");
-    printk(KERN_INFO "%s","María de los Angeles Herrera Sumalé.\n"); */
     return 0;
 }
 

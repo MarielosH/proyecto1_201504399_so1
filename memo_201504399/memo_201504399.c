@@ -19,6 +19,7 @@ MODULE_DESCRIPTION("Ecribir informacion de la memoria ram.");
 MODULE_AUTHOR("201504399");
 
 struct sysinfo inf;
+
 static int escribir_archivo(struct seq_file * archivo, void *v){
     si_meminfo(&inf);
     long total_memoria = (inf.totalram *4 );
